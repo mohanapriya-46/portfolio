@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohanapriya Ramakrishnan | Cosmic Skills</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- GSAP for Animations -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00eaff;
+      --secondary: #7c3aed;
+      --accent: #f97316;
+      --moon-glow: #f0f9ff;
+      --star-glow: #fffacd;
+    }
+    
+    body {
+      background: #0a0e1a;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    
+    /* Cosmic Background */
+    .cosmic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at top, #0c1220 0%, #050811 70%),
+        radial-gradient(ellipse at bottom, #1a1f3d 0%, transparent 70%);
+    }
+    
+    /* Moon */
+    .moon {
+      position: fixed;
+      top: 10%;
+      right: 10%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f0f9ff 0%, #a5d8ff 100%);
+      box-shadow: 
+        0 0 60px rgba(240, 249, 255, 0.6),
+        0 0 120px rgba(165, 216, 255, 0.3),
+        inset 20px -20px 40px rgba(0, 0, 0, 0.2);
+      z-index: -1;
+      animation: moon-float 20s ease-in-out infinite;
+    }
+    
+    .moon-craters {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    
+    .crater {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+    }
+    
+    @keyframes moon-float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-10px, 15px) rotate(1deg); }
+      50% { transform: translate(5px, -10px) rotate(-1deg); }
+      75% { transform: translate(15px, 5px) rotate(0.5deg); }
+    }
+    
+    /* Stars */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) ease-in-out infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    
+    /* Shooting Stars */
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 50px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+    }
+    
+    @keyframes shooting-star {
+      0% {
+        transform: translateX(0) translateY(0) rotate(45deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateX(100vw) translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Space Dust */
+    .space-dust {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .dust-particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    
+    /* Navigation */
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Skills Container */
+    .skills-container {
+      position: relative;
+      z-index: 1;
+      padding-top: 100px;
+    }
+    
+    /* Cosmic Title */
+    .cosmic-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-align: center;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      margin-bottom: 80px;
+    }
+    
+    .cosmic-title::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    
+    /* Skill Category */
+    .skill-category {
+      position: relative;
+      text-align: center;
+      margin: 80px 0 40px;
+      padding: 20px;
+    }
+    
+    .category-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(0, 234, 255, 0.1) 0%, transparent 70%);
+      z-index: -1;
+      border-radius: 50%;
+    }
+    
+    /* Skill Cards */
+    .skill-card {
+      background: rgba(16, 23, 41, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 234, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 
+        0 20px 40px rgba(0, 234, 255, 0.2),
+        0 0 60px rgba(123, 58, 237, 0.1);
+      border-color: rgba(0, 234, 255, 0.4);
+    }
+    
+    /* Orbital Skill Display */
+    .orbital-skill {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      position: relative;
+      background: rgba(0, 234, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+    
+    .orbital-skill:hover {
+      background: rgba(0, 234, 255, 0.2);
+      transform: scale(1.1) rotate(360deg);
+    }
+    
+    .orbital-ring {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border: 2px dashed rgba(0, 234, 255, 0.3);
+      border-radius: 50%;
+      animation: orbit 20s linear infinite;
+    }
+    
+    @keyframes orbit {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Progress Bar */
+    .cosmic-progress {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 15px;
+    }
+    
+    .cosmic-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 6px;
+      width: 0%;
+      position: relative;
+      transition: width 2s ease-in-out;
+    }
+    
+    .cosmic-progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    /* Constellation Effect */
+    .constellation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    
+    .star-node {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--star-glow);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--star-glow);
+    }
+    
+    .star-connection {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      transform-origin: left center;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .moon {
+        width: 100px;
+        height: 100px;
+        top: 5%;
+        right: 5%;
+      }
+      
+      .cosmic-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+      
+      .skill-card {
+        padding: 20px;
+      }
+      
+      .orbital-skill {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .orbital-ring {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    
+    /* Loading Animation */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0e1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-planet {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      animation: planet-spin 3s linear infinite;
+    }
+    
+    .loading-ring {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border: 2px solid rgba(0, 234, 255, 0.3);
+      border-radius: 50%;
+      animation: ring-rotate 4s linear infinite reverse;
+    }
+    
+    @keyframes planet-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes ring-rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Glow Text */
+    .glow-text {
+      text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 40px currentColor;
+    }
+    
+    /* Skill Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="relative">
+      <div class="loading-planet"></div>
+      <div class="loading-ring"></div>
+    </div>
+  </div>
+
+  <!-- Cosmic Background -->
+  <div class="cosmic-bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="moon">
+    <div class="moon-craters"></div>
+  </div>
+  <div class="space-dust" id="space-dust"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 bg-gray-950/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="text-3xl font-bold tracking-tight">
+        <span class="text-white">Cosmic</span><span class="text-blue-500">Dev</span>
+      </div>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-10 text-lg">
+        <li><a href="index.html" class="nav-link hover:text-orange-500 transition">Home</a></li>
+        <li><a href="about.html" class="nav-link hover:text-orange-500 transition">About</a></li>
+        <li><a href="skills.html" class="nav-link text-orange-400 font-bold">Skills</a></li>
+        <li><a href="works.html" class="nav-link hover:text-orange-500 transition">Works</a></li>
+        <li><a href="resume.html" class="nav-link hover:text-orange-500 transition">Resume</a></li>
+        <li><a href="blogs.html" class="nav-link hover:text-orange-500 transition">Blogs</a></li>
+        <li><a href="contact.html" class="nav-link hover:text-orange-500 transition">Contact</a></li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-3xl hover:text-orange-500 transition">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 right-0 h-full w-64 bg-gray-950/95 backdrop-blur-xl z-50 pt-20 px-6">
+      <button id="close-menu" class="absolute top-6 right-6 text-2xl hover:text-orange-500">
+        <i class="fas fa-times"></i>
+      </button>
+      <ul class="flex flex-col space-y-6 mt-8">
+        <li><a href="index.html" class="text-xl hover:text-orange-500 transition py-3 border-b border-gray-700">Home</a></li>
+        <li><a href="about.html" class="text-xl hover:text-orange-500 transition py-3 border-b border-gray-700">About</a></li>
+        <li><a href="skills.html" class="text-xl text-orange-400 font-bold py-3 border-b border-gray-700">Skills</a></li>
+        <li><a href="works.html" class="text-xl hover:text-orange-500 transition py-3 border-b border-gray-700">Works</a></li>
+        <li><a href="resume.html" class="text-xl hover:text-orange-500 transition py-3 border-b border-gray-700">Resume</a></li>
+        <li><a href="blogs.html" class="text-xl hover:text-orange-500 transition py-3 border-b border-gray-700">Blogs</a></li>
+        <li><a href="contact.html" class="text-xl hover:text-orange-500 transition py-3">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Skills Container -->
+  <div class="skills-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Hero Section -->
+    <section class="py-20 text-center">
+      <h1 class="cosmic-title text-5xl md:text-7xl mb-6 floating">
+        Cosmic Skills
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+        Navigating the <span class="text-cyan-400 font-semibold">universe of technology</span> with expertise in modern development stacks
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mb-16">
+        <button class="skill-filter active px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all" data-filter="all">
+          All Skills
+        </button>
+        <button class="skill-filter px-6 py-3 rounded-full glass-effect font-semibold hover:bg-cyan-500/20 transition-all" data-filter="frontend">
+          Frontend
+        </button>
+        <button class="skill-filter px-6 py-3 rounded-full glass-effect font-semibold hover:bg-purple-500/20 transition-all" data-filter="backend">
+          Backend
+        </button>
+        <button class="skill-filter px-6 py-3 rounded-full glass-effect font-semibold hover:bg-green-500/20 transition-all" data-filter="ai-ml">
+          AI/ML
+        </button>
+        <button class="skill-filter px-6 py-3 rounded-full glass-effect font-semibold hover:bg-orange-500/20 transition-all" data-filter="tools">
+          Tools
+        </button>
+      </div>
+    </section>
+
+    <!-- Programming Languages -->
+    <section class="skill-category" id="languages">
+      <div class="category-glow"></div>
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        <span class="glow-text text-cyan-400">Programming</span>
+        <span class="text-white"> Languages</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-category="all">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-python text-4xl text-yellow-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Python</h3>
+          <p class="text-gray-400 text-center mb-4">Advanced proficiency in AI/ML & Backend</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="95"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">95%</div>
+        </div>
+
+        <div class="skill-card" data-category="all">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-js-square text-4xl text-yellow-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">JavaScript</h3>
+          <p class="text-gray-400 text-center mb-4">ES6+, Modern Frameworks, Async Operations</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="92"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">92%</div>
+        </div>
+
+        <div class="skill-card" data-category="all">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-java text-4xl text-red-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Java</h3>
+          <p class="text-gray-400 text-center mb-4">Enterprise applications & Android</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="85"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">85%</div>
+        </div>
+
+        <div class="skill-card" data-category="all">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-code text-4xl text-blue-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">C/C++</h3>
+          <p class="text-gray-400 text-center mb-4">System programming & Algorithms</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="90"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">90%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frontend Development -->
+    <section class="skill-category" id="frontend">
+      <div class="category-glow" style="background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);"></div>
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        <span class="glow-text text-cyan-400">Frontend</span>
+        <span class="text-white"> Universe</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-category="frontend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-react text-4xl text-cyan-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">React.js</h3>
+          <p class="text-gray-400 text-center mb-4">Hooks, Context, Redux, Next.js</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="96"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">96%</div>
+        </div>
+
+        <div class="skill-card" data-category="frontend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-html5 text-4xl text-orange-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">HTML5</h3>
+          <p class="text-gray-400 text-center mb-4">Semantic Markup, Web Components</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="98"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">98%</div>
+        </div>
+
+        <div class="skill-card" data-category="frontend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-css3-alt text-4xl text-blue-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">CSS3</h3>
+          <p class="text-gray-400 text-center mb-4">Grid, Flexbox, Animations, Sass</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="95"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">95%</div>
+        </div>
+
+        <div class="skill-card" data-category="frontend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-vuejs text-4xl text-green-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Vue.js</h3>
+          <p class="text-gray-400 text-center mb-4">Vue 3, Vuex, Vue Router</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="82"></div>
+          </div>
+          <div class="text-right mt-2 text-cyan-400 font-bold">82%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Backend Development -->
+    <section class="skill-category" id="backend">
+      <div class="category-glow" style="background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);"></div>
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        <span class="glow-text text-purple-400">Backend</span>
+        <span class="text-white"> Galaxy</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-category="backend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-node-js text-4xl text-green-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Node.js</h3>
+          <p class="text-gray-400 text-center mb-4">Express, REST APIs, Microservices</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="94"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">94%</div>
+        </div>
+
+        <div class="skill-card" data-category="backend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-python text-4xl text-yellow-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Django</h3>
+          <p class="text-gray-400 text-center mb-4">DRF, ORM, Authentication</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="88"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">88%</div>
+        </div>
+
+        <div class="skill-card" data-category="backend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-database text-4xl text-blue-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">MongoDB</h3>
+          <p class="text-gray-400 text-center mb-4">Aggregation, Indexing, Replication</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="90"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">90%</div>
+        </div>
+
+        <div class="skill-card" data-category="backend">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-database text-4xl text-blue-300"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">PostgreSQL</h3>
+          <p class="text-gray-400 text-center mb-4">Complex queries, Optimization</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="87"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">87%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI & Machine Learning -->
+    <section class="skill-category" id="ai-ml">
+      <div class="category-glow" style="background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, transparent 70%);"></div>
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        <span class="glow-text text-orange-400">AI/ML</span>
+        <span class="text-white"> Cosmos</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-category="ai-ml">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-brain text-4xl text-purple-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">TensorFlow</h3>
+          <p class="text-gray-400 text-center mb-4">Neural Networks, Deep Learning</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="86"></div>
+          </div>
+          <div class="text-right mt-2 text-orange-400 font-bold">86%</div>
+        </div>
+
+        <div class="skill-card" data-category="ai-ml">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-chart-line text-4xl text-blue-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">PyTorch</h3>
+          <p class="text-gray-400 text-center mb-4">Computer Vision, NLP</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="84"></div>
+          </div>
+          <div class="text-right mt-2 text-orange-400 font-bold">84%</div>
+        </div>
+
+        <div class="skill-card" data-category="ai-ml">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-robot text-4xl text-cyan-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">OpenAI API</h3>
+          <p class="text-gray-400 text-center mb-4">GPT Models, Fine-tuning</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="89"></div>
+          </div>
+          <div class="text-right mt-2 text-orange-400 font-bold">89%</div>
+        </div>
+
+        <div class="skill-card" data-category="ai-ml">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fas fa-chart-bar text-4xl text-green-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Scikit-learn</h3>
+          <p class="text-gray-400 text-center mb-4">ML Algorithms, Model Training</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="91"></div>
+          </div>
+          <div class="text-right mt-2 text-orange-400 font-bold">91%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools & DevOps -->
+    <section class="skill-category" id="tools">
+      <div class="category-glow" style="background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);"></div>
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        <span class="glow-text text-green-400">Tools</span>
+        <span class="text-white"> & DevOps</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-category="tools">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-git-alt text-4xl text-orange-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Git</h3>
+          <p class="text-gray-400 text-center mb-4">Version Control, CI/CD</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="96"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">96%</div>
+        </div>
+
+        <div class="skill-card" data-category="tools">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-docker text-4xl text-blue-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Docker</h3>
+          <p class="text-gray-400 text-center mb-4">Containerization, Orchestration</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="88"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">88%</div>
+        </div>
+
+        <div class="skill-card" data-category="tools">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-aws text-4xl text-orange-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">AWS</h3>
+          <p class="text-gray-400 text-center mb-4">EC2, S3, Lambda, RDS</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="85"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">85%</div>
+        </div>
+
+        <div class="skill-card" data-category="tools">
+          <div class="orbital-skill">
+            <div class="orbital-ring"></div>
+            <i class="fab fa-jenkins text-4xl text-red-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Jenkins</h3>
+          <p class="text-gray-400 text-center mb-4">CI/CD Pipelines, Automation</p>
+          <div class="cosmic-progress">
+            <div class="cosmic-progress-bar" data-width="82"></div>
+          </div>
+          <div class="text-right mt-2 text-green-400 font-bold">82%</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-16 bg-black/50 mt-20 relative z-10">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 px-6 text-center md:text-left">
+      <div>
+        <h2 class="text-2xl font-bold text-cyan-400 mb-4">Contact</h2>
+        <p class="text-gray-300"><i class="fas fa-envelope mr-2"></i>mohanapriya4625@gmail.com</p>
+        <p class="text-gray-300 mt-2"><i class="fas fa-phone mr-2"></i>8056484806</p>
+        <p class="text-gray-300 mt-2"><i class="fas fa-map-marker-alt mr-2"></i>Dharmapuri, Tamil Nadu</p>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold text-cyan-400 mb-4">Quick Links</h2>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="index.html" class="hover:text-cyan-400 transition"><i class="fas fa-home mr-2"></i>Home</a></li>
+          <li><a href="skills.html" class="hover:text-cyan-400 transition"><i class="fas fa-code mr-2"></i>Skills</a></li>
+          <li><a href="works.html" class="hover:text-cyan-400 transition"><i class="fas fa-project-diagram mr-2"></i>Works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold text-cyan-400 mb-4">Follow Me</h2>
+        <div class="flex justify-center md:justify-start space-x-8 text-3xl">
+          <a href="https://www.linkedin.com/in/mohanapriya-ramakrishnan-a39a93397" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/mohanapriya-46" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110"><i class="fab fa-github"></i></a>
+          <a href="#" class="hover:text-cyan-400 transition transform hover:scale-110"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-gray-500 mt-10">© 2024 Mohanapriya Ramakrishnan. Exploring the cosmic universe of code.</p>
+  </footer>
+
+  <!-- Shooting Stars Container -->
+  <div id="shooting-stars"></div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 opacity-0 z-40">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Initialize GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hide loading screen
+    window.addEventListener('load', () => {
+      gsap.to('#loading-screen', {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          document.getElementById('loading-screen').style.display = 'none';
+          initializePage();
+        }
+      });
+    });
+
+    function initializePage() {
+      // Create stars
+      function createStars() {
+        const starsContainer = document.getElementById('stars');
+        const starCount = 150;
+        
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.classList.add('star');
+          
+          const size = Math.random() * 3 + 1;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const duration = Math.random() * 5 + 3;
+          const delay = Math.random() * 5;
+          
+          star.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}%;
+            top: ${y}%;
+            animation-delay: ${delay}s;
+            --duration: ${duration}s;
+          `;
+          
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Create moon craters
+      function createMoonCraters() {
+        const cratersContainer = document.querySelector('.moon-craters');
+        const craterCount = 15;
+        
+        for (let i = 0; i < craterCount; i++) {
+          const crater = document.createElement('div');
+          crater.classList.add('crater');
+          
+          const size = Math.random() * 40 + 10;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          
+          crater.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}%;
+            top: ${y}%;
+          `;
+          
+          cratersContainer.appendChild(crater);
+        }
+      }
+
+      // Create space dust
+      function createSpaceDust() {
+        const dustContainer = document.getElementById('space-dust');
+        const dustCount = 50;
+        
+        for (let i = 0; i < dustCount; i++) {
+          const dust = document.createElement('div');
+          dust.classList.add('dust-particle');
+          
+          const size = Math.random() * 2 + 0.5;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const duration = Math.random() * 20 + 10;
+          
+          dust.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}%;
+            top: ${y}%;
+            animation: float ${duration}s ease-in-out infinite;
+          `;
+          
+          dustContainer.appendChild(dust);
+        }
+      }
+
+      // Create shooting stars
+      function createShootingStars() {
+        const container = document.getElementById('shooting-stars');
+        
+        function createStar() {
+          const star = document.createElement('div');
+          star.classList.add('shooting-star');
+          
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const duration = Math.random() * 3 + 2;
+          const delay = Math.random() * 10;
+          
+          star.style.cssText = `
+            left: ${x}%;
+            top: ${y}%;
+            animation: shooting-star ${duration}s ease-in-out ${delay}s infinite;
+          `;
+          
+          container.appendChild(star);
+          
+          setTimeout(() => {
+            star.remove();
+          }, (duration + delay) * 1000);
+        }
+        
+        // Create shooting stars periodically
+        setInterval(() => {
+          if (Math.random() > 0.7) {
+            createStar();
+          }
+        }, 3000);
+        
+        // Create initial stars
+        for (let i = 0; i < 3; i++) {
+          setTimeout(createStar, i * 1000);
+        }
+      }
+
+      // Animate progress bars on scroll
+      function animateProgressBars() {
+        const progressBars = document.querySelectorAll('.cosmic-progress-bar');
+        
+        progressBars.forEach(bar => {
+          ScrollTrigger.create({
+            trigger: bar,
+            start: "top 80%",
+            onEnter: () => {
+              const width = bar.getAttribute('data-width');
+              gsap.to(bar, {
+                width: `${width}%`,
+                duration: 2,
+                ease: "power3.out"
+              });
+            }
+          });
+        });
+      }
+
+      // Skill filtering
+      function setupSkillFilter() {
+        const filterButtons = document.querySelectorAll('.skill-filter');
+        const skillCards = document.querySelectorAll('.skill-card');
+        
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            const filter = button.getAttribute('data-filter');
+            
+            // Filter skill cards
+            skillCards.forEach(card => {
+              if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                gsap.to(card, {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.5,
+                  display: 'block'
+                });
+              } else {
+                gsap.to(card, {
+                  opacity: 0,
+                  scale: 0.8,
+                  duration: 0.5,
+                  onComplete: () => {
+                    card.style.display = 'none';
+                  }
+                });
+              }
+            });
+            
+            // Add cosmic particle effect
+            createFilterEffect();
+          });
+        });
+      }
+
+      function createFilterEffect() {
+        const particles = 20;
+        const filterBtn = document.querySelector('.skill-filter.active');
+        const rect = filterBtn.getBoundingClientRect();
+        
+        for (let i = 0; i < particles; i++) {
+          const particle = document.createElement('div');
+          particle.style.cssText = `
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: ${getComputedStyle(filterBtn).background};
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            left: ${rect.left + rect.width/2}px;
+            top: ${rect.top + rect.height/2}px;
+          `;
+          
+          document.body.appendChild(particle);
+          
+          gsap.to(particle, {
+            x: (Math.random() - 0.5) * 200,
+            y: (Math.random() - 0.5) * 200,
+            opacity: 0,
+            duration: 1,
+            onComplete: () => particle.remove()
+          });
+        }
+      }
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const closeMenuBtn = document.getElementById('close-menu');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      closeMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+      
+      // Close menu when clicking links
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+
+      // Back to top button
+      const backToTopBtn = document.getElementById('back-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          gsap.to(backToTopBtn, { opacity: 1, y: 0, duration: 0.3 });
+        } else {
+          gsap.to(backToTopBtn, { opacity: 0, y: 20, duration: 0.3 });
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', () => {
+        gsap.to(window, { scrollTo: 0, duration: 1.5, ease: "power3.out" });
+      });
+
+      // Animate skill cards on scroll
+      gsap.utils.toArray('.skill-card').forEach((card, i) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          },
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          delay: i * 0.1,
+          ease: "power2.out"
+        });
+      });
+
+      // Create constellation effect
+      function createConstellation() {
+        const container = document.querySelector('.skills-container');
+        const starCount = 30;
+        const stars = [];
+        
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.classList.add('star-node');
+          
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          
+          star.style.cssText = `
+            left: ${x}%;
+            top: ${y}%;
+          `;
+          
+          container.appendChild(star);
+          stars.push({ element: star, x, y });
+        }
+        
+        // Connect nearby stars
+        for (let i = 0; i < stars.length; i++) {
+          for (let j = i + 1; j < stars.length; j++) {
+            const dx = stars[i].x - stars[j].x;
+            const dy = stars[i].y - stars[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 15) {
+              const connection = document.createElement('div');
+              connection.classList.add('star-connection');
+              
+              const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+              const length = distance;
+              
+              connection.style.cssText = `
+                left: ${Math.min(stars[i].x, stars[j].x)}%;
+                top: ${Math.min(stars[i].y, stars[j].y)}%;
+                width: ${length}%;
+                transform: rotate(${angle}deg);
+              `;
+              
+              container.appendChild(connection);
+            }
+          }
+        }
+      }
+
+      // Initialize all effects
+      createStars();
+      createMoonCraters();
+      createSpaceDust();
+      createShootingStars();
+      animateProgressBars();
+      setupSkillFilter();
+      createConstellation();
+
+      // Parallax effect for moon
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 40;
+        const y = (e.clientY / window.innerHeight - 0.5) * 40;
+        gsap.to('.moon', { x: x, y: y, duration: 1, ease: "power2.out" });
+      });
+
+      // Add glowing effect to skill cards on hover
+      document.querySelectorAll('.skill-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            boxShadow: '0 20px 40px rgba(0, 234, 255, 0.4), 0 0 80px rgba(123, 58, 237, 0.3)',
+            duration: 0.3
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            boxShadow: '0 20px 40px rgba(0, 234, 255, 0.2), 0 0 60px rgba(123, 58, 237, 0.1)',
+            duration: 0.3
+          });
+        });
+      });
+
+      // Typing effect for section titles
+      gsap.utils.toArray('.skill-category h2').forEach((title, i) => {
+        const text = title.textContent;
+        title.textContent = '';
+        
+        gsap.fromTo(title,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: i * 0.2,
+            scrollTrigger: {
+              trigger: title,
+              start: "top 80%"
+            }
+          }
+        );
+      });
+    }
+  </script>
+</body>
+</html>

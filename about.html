@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | MohanaPriya Ramakrishnan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- GSAP Core + Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #00d4ff;
+      --accent: #7b2ff7;
+      --secondary: #f97316;
+      --dark: #0f172a;
+      --light: #f8fafc;
+    }
+    
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Glass Effect */
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Magnetic Elements */
+    .magnetic {
+      display: inline-block;
+      will-change: transform;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* 3D Text Effect */
+    .text-3d {
+      text-shadow: 
+        0 1px 0 #ccc, 
+        0 2px 0 #c9c9c9,
+        0 3px 0 #bbb,
+        0 4px 0 #b9b9b9,
+        0 5px 0 #aaa,
+        0 6px 1px rgba(0,0,0,.1),
+        0 0 5px rgba(0,0,0,.1),
+        0 1px 3px rgba(0,0,0,.3),
+        0 3px 5px rgba(0,0,0,.2),
+        0 20px 40px rgba(0, 212, 255, 0.3);
+      transform-style: preserve-3d;
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Tech Sphere */
+    #tech-sphere {
+      width: 100%;
+      max-width: 500px;
+      height: 500px;
+      position: relative;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+    
+    .tech-logo {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(0, 212, 255, 0.1);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+    
+    .tech-logo:hover {
+      transform: scale(1.4) !important;
+      z-index: 100;
+      box-shadow: 0 0 50px rgba(0, 212, 255, 0.6);
+    }
+    
+    /* Skill Bars */
+    .skill-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 5px;
+      position: relative;
+      width: 0;
+    }
+    
+    .skill-progress::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+    
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 50px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--accent));
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: -8px;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 20px var(--primary);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tech-logo {
+        width: 50px;
+        height: 50px;
+      }
+      #tech-sphere {
+        height: 350px;
+      }
+    }
+    
+    /* Particle Background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.3;
+    }
+    
+    /* Loading Animation */
+    .loading-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.3s ease;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+    
+    /* Hover Glow */
+    .hover-glow {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-glow:hover {
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    }
+  </style>
+</head>
+
+<body class="relative">
+  <!-- Loading Bar -->
+  <div class="loading-bar"></div>
+  
+  <!-- Particle Background -->
+  <div id="particles" class="particles"></div>
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 glass-effect z-50 border-b border-gray-800/50 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="text-2xl sm:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300">
+          Mohana<span class="text-cyan-500">priya</span>
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex space-x-6">
+          <a href="index.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-home mr-2"></i>
+            <span>Home</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+          <a href="about.html" class="nav-link group relative px-3 py-2 text-cyan-400 font-semibold">
+            <i class="fas fa-user mr-2"></i>
+            <span>About</span>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400"></div>
+          </a>
+          <a href="skills.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-code mr-2"></i>
+            <span>Skills</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+          <a href="works.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-project-diagram mr-2"></i>
+            <span>Works</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+          <a href="blogs.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-blog mr-2"></i>
+            <span>Blogs</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+          <a href="resume.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-file-alt mr-2"></i>
+            <span>Resume</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+          <a href="contact.html" class="nav-link group relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-envelope mr-2"></i>
+            <span>Contact</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></div>
+          </a>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" class="lg:hidden text-2xl focus:outline-none hover:text-cyan-400 transition-colors">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-gray-900/95 backdrop-blur-xl z-50 pt-20 px-6">
+      <button id="close-menu" class="absolute top-6 right-6 text-2xl hover:text-cyan-400">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="flex flex-col space-y-6 mt-8">
+        <a href="index.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-home mr-3 w-6"></i>Home
+        </a>
+        <a href="about.html" class="text-xl font-semibold text-cyan-400 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-user mr-3 w-6"></i>About
+        </a>
+        <a href="skills.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-code mr-3 w-6"></i>Skills
+        </a>
+        <a href="works.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-project-diagram mr-3 w-6"></i>Works
+        </a>
+        <a href="blogs.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-blog mr-3 w-6"></i>Blogs
+        </a>
+        <a href="resume.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 border-b border-gray-700 flex items-center">
+          <i class="fas fa-file-alt mr-3 w-6"></i>Resume
+        </a>
+        <a href="contact.html" class="text-xl font-semibold hover:text-cyan-400 transition-colors duration-300 py-3 flex items-center">
+          <i class="fas fa-envelope mr-3 w-6"></i>Contact
+        </a>
+      </div>
+      <div class="mt-12 pt-8 border-t border-gray-700">
+        <div class="flex space-x-6 justify-center">
+          <a href="www.linkedin.com/in/mohanapriya-ramakrishnan-a39a93397" class="text-2xl hover:text-cyan-400 transition-colors">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/mohanapriya-46/Mohanapriya46" class="text-2xl hover:text-cyan-400 transition-colors">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:mohanapriya4625@gmail.com" class="text-2xl hover:text-cyan-400 transition-colors">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col lg:flex-row items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-purple-900/30 to-pink-900/20"></div>
+    
+    <div class="max-w-7xl mx-auto w-full relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Profile Image -->
+        <div class="relative flex justify-center lg:justify-end">
+          <div class="floating relative">
+            <!-- Main Profile Image -->
+            <div class="relative group">
+              <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
+              <img src="./images/mohana.jpeg" 
+                   alt="Mohanapriya Ramakrishnan"
+                   class="relative w-72 h-72 md:w-96 md:h-96 rounded-full object-cover border-4 border-gray-800 shadow-2xl hover:scale-105 transition-transform duration-500"
+                   onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+            </div>
+            
+            <!-- Floating Elements Around Image -->
+            <div class="absolute -top-4 -right-4 w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center animate-pulse">
+              <i class="fas fa-code text-cyan-400 text-2xl"></i>
+            </div>
+            <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center animate-pulse" style="animation-delay: 1s;">
+              <i class="fas fa-robot text-purple-400 text-2xl"></i>
+            </div>
+            <div class="absolute -top-4 -left-4 w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center animate-pulse" style="animation-delay: 2s;">
+              <i class="fas fa-server text-orange-400 text-2xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="text-center lg:text-left">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
+            <span class="gradient-text">Hello, I'm</span><br>
+            <span class="text-3d text-cyan-400">Mohanapriya</span><br>
+            <span class="text-2xl sm:text-3xl md:text-4xl text-gray-300 mt-2">Ramakrishnan</span>
+          </h1>
+          
+          <div class="typing-text text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 h-10">
+            Full Stack Developer & AI Specialist
+          </div>
+          
+          <p class="text-lg text-gray-400 mb-8 max-w-xl">
+            Passionate about building scalable web applications with modern technologies. 
+            I transform complex ideas into elegant, high-performance digital solutions.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#journey" 
+               class="magnetic group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300">
+              <span class="relative z-10">Explore My Journey</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+            </a>
+            
+            <a href="#contact"
+               class="magnetic group relative overflow-hidden px-8 py-4 glass-effect rounded-lg font-semibold text-lg border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300">
+              <span class="relative z-10">Get In Touch</span>
+              <div class="absolute inset-0 bg-cyan-500/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+      <a href="#about-content" class="animate-bounce">
+        <i class="fas fa-chevron-down text-2xl text-cyan-400"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section id="about-content" class="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text">My Story & Philosophy</h2>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-cyan-400">The Journey Begins</h3>
+          <p class="text-gray-300 mb-6 leading-relaxed">
+            My journey into the world of technology started with curiosity and a desire to create. 
+            What began as simple HTML pages has evolved into building complex, AI-driven applications 
+            that solve real-world problems.
+          </p>
+          <p class="text-gray-300 mb-6 leading-relaxed">
+            With <span class="text-cyan-400 font-semibold">4+ years</span> of experience, I've had the privilege of working on 
+            diverse projects ranging from enterprise applications to innovative AI solutions.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                <i class="fas fa-check text-green-400 text-sm"></i>
+              </div>
+              <span class="text-gray-300">Passionate about clean code and best practices</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                <i class="fas fa-check text-green-400 text-sm"></i>
+              </div>
+              <span class="text-gray-300">Always learning and adapting to new technologies</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                <i class="fas fa-check text-green-400 text-sm"></i>
+              </div>
+              <span class="text-gray-300">Believe in building solutions that make a difference</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass-effect rounded-2xl p-8 hover-glow">
+          <h4 class="text-xl font-bold mb-6 text-purple-400">Development Philosophy</h4>
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-lightbulb text-cyan-400"></i>
+              </div>
+              <div>
+                <h5 class="font-semibold mb-2">Innovation First</h5>
+                <p class="text-gray-400 text-sm">Always exploring new ways to solve problems creatively</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-users text-purple-400"></i>
+              </div>
+              <div>
+                <h5 class="font-semibold mb-2">User-Centric Design</h5>
+                <p class="text-gray-400 text-sm">Building with the end-user experience as the priority</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-rocket text-orange-400"></i>
+              </div>
+              <div>
+                <h5 class="font-semibold mb-2">Performance Excellence</h5>
+                <p class="text-gray-400 text-sm">Optimizing for speed, scalability, and reliability</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Section -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+        <div class="glass-effect rounded-xl p-6 text-center hover-glow">
+          <div class="text-4xl font-bold text-cyan-400 mb-2 counter" data-target="50">0</div>
+          <div class="text-gray-400">Projects Completed</div>
+        </div>
+        <div class="glass-effect rounded-xl p-6 text-center hover-glow">
+          <div class="text-4xl font-bold text-purple-400 mb-2 counter" data-target="4">0</div>
+          <div class="text-gray-400">Years Experience</div>
+        </div>
+        <div class="glass-effect rounded-xl p-6 text-center hover-glow">
+          <div class="text-4xl font-bold text-orange-400 mb-2 counter" data-target="30">0</div>
+          <div class="text-gray-400">Technologies Mastered</div>
+        </div>
+        <div class="glass-effect rounded-xl p-6 text-center hover-glow">
+          <div class="text-4xl font-bold text-green-400 mb-2 counter" data-target="100">0</div>
+          <div class="text-gray-400">% Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Visualization -->
+  <section id="skills-visual" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text">Technical Expertise</h2>
+      
+      <!-- Skills Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 mb-12">
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fab fa-react text-4xl text-cyan-400 mb-4"></i>
+          <div class="font-semibold">React</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="95"></div>
+          </div>
+        </div>
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fab fa-node-js text-4xl text-green-500 mb-4"></i>
+          <div class="font-semibold">Node.js</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="90"></div>
+          </div>
+        </div>
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fab fa-python text-4xl text-yellow-400 mb-4"></i>
+          <div class="font-semibold">Python</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="88"></div>
+          </div>
+        </div>
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fas fa-database text-4xl text-blue-400 mb-4"></i>
+          <div class="font-semibold">MongoDB</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="92"></div>
+          </div>
+        </div>
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fas fa-robot text-4xl text-purple-400 mb-4"></i>
+          <div class="font-semibold">AI/ML</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="85"></div>
+          </div>
+        </div>
+        <div class="skill-card glass-effect rounded-xl p-6 text-center hover-glow">
+          <i class="fab fa-aws text-4xl text-orange-400 mb-4"></i>
+          <div class="font-semibold">AWS</div>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" data-width="80"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3D Tech Sphere -->
+      <div class="mt-20 text-center">
+        <h3 class="text-2xl font-bold mb-8 text-cyan-400">Interactive Tech Sphere</h3>
+        <div id="tech-sphere"></div>
+        <p class="text-gray-400 mt-6">Hover over any technology to see it pop out!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Timeline -->
+  <section id="journey" class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text">Professional Journey</h2>
+      
+      <div class="timeline-container">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="glass-effect rounded-xl p-6 ml-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-cyan-400">Full Stack Developer</h3>
+              <span class="text-purple-400 font-semibold">2023 - Present</span>
+            </div>
+            <p class="text-gray-300 mb-3">Leading full-stack development for enterprise applications</p>
+            <ul class="text-gray-400 space-y-2">
+              <li>• Built scalable microservices architecture</li>
+              <li>• Implemented real-time features with WebSocket</li>
+              <li>• Optimized applications for 95% Lighthouse score</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="glass-effect rounded-xl p-6 ml-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-purple-400">Frontend & AI Developer</h3>
+              <span class="text-cyan-400 font-semibold">2021 - 2023</span>
+            </div>
+            <p class="text-gray-300 mb-3">Developed AI-powered web applications</p>
+            <ul class="text-gray-400 space-y-2">
+              <li>• Integrated TensorFlow.js for client-side ML</li>
+              <li>• Created responsive dashboards with React</li>
+              <li>• Reduced load times by 60%</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="glass-effect rounded-xl p-6 ml-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-orange-400">Junior Web Developer</h3>
+              <span class="text-green-400 font-semibold">2020 - 2021</span>
+            </div>
+            <p class="text-gray-300 mb-3">Started professional web development journey</p>
+            <ul class="text-gray-400 space-y-2">
+              <li>• Built first production applications</li>
+              <li>• Learned modern development workflows</li>
+              <li>• Contributed to open-source projects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Certifications -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text">Education & Certifications</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="glass-effect rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-cyan-400 flex items-center">
+            <i class="fas fa-graduation-cap mr-3"></i>Education
+          </h3>
+          <div class="space-y-6">
+            <div class="border-l-4 border-cyan-500 pl-6 py-4">
+              <h4 class="text-xl font-bold">Bachelor of Computer Applications</h4>
+              <p class="text-gray-400">University of Periyar University, Salem</p>
+              <p class="text-cyan-300 mt-2">2022 - 2025 | CGPA: 8.7/10</p>
+            </div>
+            <div class="border-l-4 border-purple-500 pl-6 py-4">
+              <h4 class="text-xl font-bold">Higher Secondary Education</h4>
+              <p class="text-gray-400">Govt High School, Dharmapuri</p>
+              <p class="text-purple-300 mt-2">2020 - 2022 | Percentage: 73.3%</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass-effect rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-purple-400 flex items-center">
+            <i class="fas fa-award mr-3"></i>Certifications
+          </h3>
+          <div class="space-y-6">
+            <div class="flex items-center p-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl">
+              <div class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center mr-4">
+                <i class="fab fa-aws text-cyan-400"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">AWS Certified Developer</h4>
+                <p class="text-gray-400 text-sm">2024</p>
+              </div>
+            </div>
+            <div class="flex items-center p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl">
+              <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mr-4">
+                <i class="fas fa-robot text-purple-400"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">TensorFlow Developer</h4>
+                <p class="text-gray-400 text-sm">2023</p>
+              </div>
+            </div>
+            <div class="flex items-center p-4 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-xl">
+              <div class="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center mr-4">
+                <i class="fab fa-react text-orange-400"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">React Professional</h4>
+                <p class="text-gray-400 text-sm">2022</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Quote -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="relative">
+        <div class="absolute -top-8 -left-8 text-6xl text-cyan-500/20">
+          <i class="fas fa-quote-left"></i>
+        </div>
+        <blockquote class="text-2xl md:text-3xl italic leading-relaxed text-gray-300 mb-8">
+          "Great code isn't just about making computers understand. It's about creating experiences that inspire, 
+          solutions that empower, and technology that makes a difference in people's lives."
+        </blockquote>
+        <div class="absolute -bottom-8 -right-8 text-6xl text-purple-500/20">
+          <i class="fas fa-quote-right"></i>
+        </div>
+      </div>
+      <p class="text-xl mt-12 text-cyan-400 font-semibold">— Mohanapriya Ramakrishnan</p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-cyan-900/20 via-purple-900/30 to-pink-900/20">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-8 gradient-text">Ready to Build Something Amazing?</h2>
+      <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+        Let's connect and discuss how we can turn your ideas into reality with cutting-edge technology.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+        <a href="mailto:mohanapriya4625@gmail.com" 
+           class="magnetic inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300">
+          <i class="fas fa-envelope mr-3"></i>
+          Send Email
+        </a>
+        <a href="https://github.com/mohanapriya-46/Mohanapriya46"
+           class="magnetic inline-flex items-center px-8 py-4 glass-effect rounded-lg font-semibold text-lg border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300">
+          <i class="fab fa-github mr-3"></i>
+          View GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-gray-800 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold gradient-text mb-2">Mohanapriya Ramakrishnan</h2>
+        <p class="text-gray-400">Full Stack Developer & AI Specialist</p>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-8 mb-8">
+        <a href="index.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Home</a>
+        <a href="about.html" class="text-cyan-400 font-semibold">About</a>
+        <a href="skills.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Skills</a>
+        <a href="works.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Works</a>
+        <a href="blogs.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Blogs</a>
+        <a href="resume.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Resume</a>
+        <a href="contact.html" class="text-gray-400 hover:text-cyan-400 transition-colors">Contact</a>
+      </div>
+      
+      <div class="flex justify-center space-x-6 text-2xl mb-8">
+        <a href="www.linkedin.com/in/mohanapriya-ramakrishnan-a39a93397" 
+           class="hover:text-cyan-400 transition-colors">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/mohanapriya-46/Mohanapriya46"
+           class="hover:text-cyan-400 transition-colors">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="mailto:mohanapriya4625@gmail.com"
+           class="hover:text-cyan-400 transition-colors">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+      
+      <p class="text-gray-500 text-sm">
+        © 2024 Mohanapriya Ramakrishnan. Crafted with passion and precision.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" 
+          class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 opacity-0 z-40">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeMenuButton = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // Initialize GSAP
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    // Create Particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 4 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const opacity = Math.random() * 0.3 + 0.1;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        particle.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${posX}%;
+          top: ${posY}%;
+          opacity: ${opacity};
+          animation: float ${duration}s ease-in-out infinite ${delay}s;
+        `;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    createParticles();
+
+    // Magnetic Buttons
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(btn, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.6,
+          ease: "power2.out"
+        });
+      });
+      
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          duration: 0.6,
+          ease: "elastic.out(1, 0.5)"
+        });
+      });
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.querySelector('.loading-bar').style.width = scrollPercent + '%';
+      
+      // Back to Top Button
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (scrollTop > 500) {
+        gsap.to(backToTopBtn, { opacity: 1, y: 0, duration: 0.3 });
+      } else {
+        gsap.to(backToTopBtn, { opacity: 0, y: 20, duration: 0.3 });
+      }
+    });
+
+    // Back to Top Button
+    document.getElementById('back-to-top').addEventListener('click', () => {
+      gsap.to(window, { scrollTo: 0, duration: 1.5, ease: "power3.out" });
+    });
+
+    // Counter Animation
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = Math.floor(current) + (counter.getAttribute('data-target') === '100' ? '%' : '+');
+            setTimeout(updateCounter, 16);
+          } else {
+            counter.textContent = target + (counter.getAttribute('data-target') === '100' ? '%' : '+');
+          }
+        };
+        
+        ScrollTrigger.create({
+          trigger: counter.parentElement,
+          start: "top 80%",
+          onEnter: updateCounter
+        });
+      });
+    }
+
+    // Skill Progress Bars Animation
+    function animateSkillBars() {
+      const skillBars = document.querySelectorAll('.skill-progress');
+      skillBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        ScrollTrigger.create({
+          trigger: bar.parentElement.parentElement,
+          start: "top 80%",
+          onEnter: () => {
+            gsap.to(bar, {
+              width: width + '%',
+              duration: 1.5,
+              ease: "power3.out"
+            });
+          }
+        });
+      });
+    }
+
+    // 3D Tech Sphere
+    function createTechSphere() {
+      const sphere = document.getElementById('tech-sphere');
+      const skills = [
+        { name: "react", color: "#61DAFB" },
+        { name: "nodejs", color: "#339933" },
+        { name: "python", color: "#3776AB" },
+        { name: "javascript", color: "#F7DF1E" },
+        { name: "mongodb", color: "#47A248" },
+        { name: "docker", color: "#2496ED" },
+        { name: "aws", color: "#FF9900" },
+        { name: "tensorflow", color: "#FF6F00" },
+        { name: "git", color: "#F05032" },
+        { name: "tailwindcss", color: "#06B6D4" },
+        { name: "nextjs", color: "#000000" },
+        { name: "express", color: "#000000" }
+      ];
+
+      const radius = Math.min(200, window.innerWidth / 4);
+      
+      skills.forEach((skill, i) => {
+        const phi = Math.acos(-1 + (2 * i) / skills.length);
+        const theta = Math.sqrt(skills.length * Math.PI) * phi;
+        
+        const x = radius * Math.cos(theta) * Math.sin(phi);
+        const y = radius * Math.sin(theta) * Math.sin(phi);
+        const z = radius * Math.cos(phi);
+        
+        const div = document.createElement('div');
+        div.className = 'tech-logo';
+        div.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.name}/${skill.name}-original.svg" 
+                         class="w-10 h-10" alt="${skill.name}">`;
+        div.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+        
+        // Add tooltip
+        div.title = skill.name.charAt(0).toUpperCase() + skill.name.slice(1);
+        
+        sphere.appendChild(div);
+        
+        // Add animation
+        gsap.to(div, {
+          rotationY: 360,
+          duration: 20 + i * 2,
+          repeat: -1,
+          ease: "none"
+        });
+      });
+
+      // Make sphere interactive
+      let mouseX = 0;
+      let mouseY = 0;
+      let sphereX = 0;
+      let sphereY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) / 100;
+        mouseY = (e.clientY - window.innerHeight / 2) / 100;
+      });
+
+      function updateSphere() {
+        sphereX += (mouseX - sphereX) * 0.05;
+        sphereY += (mouseY - sphereY) * 0.05;
+        
+        gsap.to(sphere, {
+          rotationY: sphereX,
+          rotationX: -sphereY,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+        
+        requestAnimationFrame(updateSphere);
+      }
+      
+      updateSphere();
+    }
+
+    // Typing Effect
+    function typingEffect() {
+      const textElement = document.querySelector('.typing-text');
+      const texts = [
+        "Full Stack Developer & AI Specialist",
+        "Building Scalable Web Applications",
+        "Passionate About Clean Code",
+        "Transforming Ideas Into Reality"
+      ];
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let isPaused = false;
+
+      function type() {
+        if (isPaused) return;
+
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+          textElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          textElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentText.length) {
+          isDeleting = true;
+          isPaused = true;
+          setTimeout(() => {
+            isPaused = false;
+            setTimeout(type, 1500);
+          }, 100);
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          isPaused = true;
+          setTimeout(() => {
+            isPaused = false;
+            setTimeout(type, 500);
+          }, 100);
+        } else {
+          setTimeout(type, isDeleting ? 50 : 100);
+        }
+      }
+
+      setTimeout(type, 1000);
+    }
+
+    // Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          gsap.to(window, {
+            scrollTo: { y: target, offsetY: 80 },
+            duration: 1,
+            ease: "power3.out"
+          });
+        }
+      });
+    });
+
+    // Initialize animations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      createTechSphere();
+      animateCounters();
+      animateSkillBars();
+      typingEffect();
+      
+      // Animate elements on scroll
+      gsap.utils.toArray('.glass-effect').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          },
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          delay: i * 0.1,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    // Parallax Effect
+    gsap.to(".floating", {
+      y: 20,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  </script>
+</body>
+</html>
